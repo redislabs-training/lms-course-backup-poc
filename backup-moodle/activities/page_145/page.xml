@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="49" moduleid="145" modulename="page" contextid="170">
+  <page id="49">
+    <name>Basics</name>
+    <intro></intro>
+    <introformat>0</introformat>
+    <content>&lt;div style="padding:56.25% 0 0 0;position:relative;"&gt;&lt;iframe src="https://player.vimeo.com/video/862550652?badge=0&amp;amp;autopause=0&amp;amp;player_id=0&amp;amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Intro to Auto Tiering"&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;script src="https://player.vimeo.com/api/player.js"&gt;&lt;/script&gt;</content>
+    <contentformat>1</contentformat>
+    <legacyfiles>0</legacyfiles>
+    <legacyfileslast>$@NULL@$</legacyfileslast>
+    <display>5</display>
+    <displayoptions>a:2:{s:10:"printintro";s:1:"0";s:17:"printlastmodified";s:1:"1";}</displayoptions>
+    <revision>1</revision>
+    <timemodified>1702504518</timemodified>
+  </page>
+</activity>

@@ -1,0 +1,16 @@
+<problem display_name="Multiple Choice" markdown="&gt;&gt;A simple true/fase?&lt;&lt;&#10;&#10;(x) True&#10;( ) False&#10;&#10;[explanation]This is why this is the answer[explanation]&#10;">
+<multiplechoiceresponse>
+  <label>A simple true/fase?</label>
+<choicegroup type="MultipleChoice">
+    <choice correct="true">True</choice>
+    <choice correct="false">False</choice>
+  </choicegroup>
+<solution>
+<div class="detailed-solution">
+<p>Explanation</p>
+
+<p>This is why this is the answer</p>
+</div>
+</solution>
+</multiplechoiceresponse>
+</problem>

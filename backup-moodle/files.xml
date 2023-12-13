@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files>
+  <file id="5210">
+    <contenthash>0c00786e2bf9c115d8398e22a6b1016152079279</contenthash>
+    <contextid>173</contextid>
+    <component>mod_resource</component>
+    <filearea>content</filearea>
+    <itemid>0</itemid>
+    <filepath>/</filepath>
+    <filename>presentation.pdf</filename>
+    <userid>2</userid>
+    <filesize>5538418</filesize>
+    <mimetype>application/pdf</mimetype>
+    <status>0</status>
+    <timecreated>1702505931</timecreated>
+    <timemodified>1702505934</timemodified>
+    <source>presentation.pdf</source>
+    <author>Admin User</author>
+    <license>unknown</license>
+    <sortorder>1</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
+  <file id="5211">
+    <contenthash>da39a3ee5e6b4b0d3255bfef95601890afd80709</contenthash>
+    <contextid>173</contextid>
+    <component>mod_resource</component>
+    <filearea>content</filearea>
+    <itemid>0</itemid>
+    <filepath>/</filepath>
+    <filename>.</filename>
+    <userid>2</userid>
+    <filesize>0</filesize>
+    <mimetype>$@NULL@$</mimetype>
+    <status>0</status>
+    <timecreated>1702505931</timecreated>
+    <timemodified>1702505934</timemodified>
+    <source>$@NULL@$</source>
+    <author>$@NULL@$</author>
+    <license>$@NULL@$</license>
+    <sortorder>0</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
+  <file id="5215">
+    <contenthash>4fa3aa4e2c05af50b80f929ab5f4086731e9508a</contenthash>
+    <contextid>168</contextid>
+    <component>course</component>
+    <filearea>overviewfiles</filearea>
+    <itemid>0</itemid>
+    <filepath>/</filepath>
+    <filename>course-logo.png</filename>
+    <userid>2</userid>
+    <filesize>10471</filesize>
+    <mimetype>image/png</mimetype>
+    <status>0</status>
+    <timecreated>1702506101</timecreated>
+    <timemodified>1702506106</timemodified>
+    <source>course-logo.png</source>
+    <author>Admin User</author>
+    <license>unknown</license>
+    <sortorder>0</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
+  <file id="5216">
+    <contenthash>da39a3ee5e6b4b0d3255bfef95601890afd80709</contenthash>
+    <contextid>168</contextid>
+    <component>course</component>
+    <filearea>overviewfiles</filearea>
+    <itemid>0</itemid>
+    <filepath>/</filepath>
+    <filename>.</filename>
+    <userid>2</userid>
+    <filesize>0</filesize>
+    <mimetype>$@NULL@$</mimetype>
+    <status>0</status>
+    <timecreated>1702506101</timecreated>
+    <timemodified>1702506106</timemodified>
+    <source>$@NULL@$</source>
+    <author>$@NULL@$</author>
+    <license>$@NULL@$</license>
+    <sortorder>0</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
+</files>

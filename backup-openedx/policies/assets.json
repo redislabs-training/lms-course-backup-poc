@@ -1,0 +1,43 @@
+{
+    "course-logo.png": {
+        "contentType": "image/png",
+        "content_son": {
+            "category": "asset",
+            "course": "B101",
+            "name": "course-logo.png",
+            "org": "basics",
+            "revision": null,
+            "run": "ongoing",
+            "tag": "c4x"
+        },
+        "displayname": "course-logo.png",
+        "filename": "asset-v1:basics+B101+ongoing+type@asset+block@course-logo.png",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": [
+            "c4x",
+            "basics",
+            "B101",
+            "thumbnail",
+            "course-logo-png.jpg",
+            null
+        ]
+    },
+    "presentation.pdf": {
+        "contentType": "application/pdf",
+        "content_son": {
+            "category": "asset",
+            "course": "B101",
+            "name": "presentation.pdf",
+            "org": "basics",
+            "revision": null,
+            "run": "ongoing",
+            "tag": "c4x"
+        },
+        "displayname": "presentation.pdf",
+        "filename": "asset-v1:basics+B101+ongoing+type@asset+block@presentation.pdf",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    }
+}

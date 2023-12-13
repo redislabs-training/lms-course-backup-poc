@@ -1,0 +1,18 @@
+<problem display_name="Multiple Choice" markdown="&gt;&gt;This is a multi-answer multiple choice?&lt;&lt;&#10;&#10;[ ] Not a correct choice&#10;[ ] Another incorrect choice&#10;[x] One you should choose&#10;[x] Another you should choose&#10;&#10;[explanation]This is why this is the answer[explanation]&#10;&#10;">
+<choiceresponse>
+  <label>This is a multi-answer multiple choice?</label>
+<checkboxgroup>
+    <choice correct="false">Not a correct choice</choice>
+    <choice correct="false">Another incorrect choice</choice>
+    <choice correct="true">One you should choose</choice>
+    <choice correct="true">Another you should choose</choice>
+  </checkboxgroup>
+<solution>
+<div class="detailed-solution">
+<p>Explanation</p>
+
+<p>This is why this is the answer</p>
+</div>
+</solution>
+</choiceresponse>
+</problem>

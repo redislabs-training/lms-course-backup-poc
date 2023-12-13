@@ -1,0 +1,17 @@
+<problem display_name="Multiple Choice" markdown="&gt;&gt;A typical TE multiple choice question - one answer&lt;&lt;&#10;( ) An answer that is meant to fool you&#10;(x) The correct answer&#10;( ) An obviously wrong answer&#10;&#10;[explanation]This is why this is the answer[explanation]">
+<multiplechoiceresponse>
+  <label>A typical TE multiple choice question - one answer</label>
+<choicegroup type="MultipleChoice">
+    <choice correct="false">An answer that is meant to fool you</choice>
+    <choice correct="true">The correct answer</choice>
+    <choice correct="false">An obviously wrong answer</choice>
+  </choicegroup>
+<solution>
+<div class="detailed-solution">
+<p>Explanation</p>
+
+<p>This is why this is the answer</p>
+</div>
+</solution>
+</multiplechoiceresponse>
+</problem>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="17" moduleid="148" modulename="resource" contextid="173">
+  <resource id="17">
+    <name>Slides for Deeper</name>
+    <intro></intro>
+    <introformat>0</introformat>
+    <tobemigrated>0</tobemigrated>
+    <legacyfiles>0</legacyfiles>
+    <legacyfileslast>$@NULL@$</legacyfileslast>
+    <display>0</display>
+    <displayoptions>a:2:{s:10:"printintro";i:1;s:8:"showtype";i:1;}</displayoptions>
+    <filterfiles>0</filterfiles>
+    <revision>1</revision>
+    <timemodified>1702505934</timemodified>
+  </resource>
+</activity>

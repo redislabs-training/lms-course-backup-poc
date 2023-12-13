@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<question_categories>
+  <question_category id="40">
+    <name>top</name>
+    <contextid>171</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>146</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>localhost:11443+231213215713+CVhCU3</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <question_bank_entries>
+    </question_bank_entries>
+  </question_category>
+  <question_category id="41">
+    <name>Default for Basic Quiz</name>
+    <contextid>171</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>146</contextinstanceid>
+    <info>The default category for questions shared in context 'Basic Quiz'.</info>
+    <infoformat>0</infoformat>
+    <stamp>localhost:11443+231213215713+xUmtdn</stamp>
+    <parent>40</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <question_bank_entries>
+    </question_bank_entries>
+  </question_category>
+  <question_category id="42">
+    <name>top</name>
+    <contextid>168</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>6</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>localhost:11443+231213215713+DjOJEZ</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <question_bank_entries>
+    </question_bank_entries>
+  </question_category>
+  <question_category id="43">
+    <name>Default for Sample</name>
+    <contextid>168</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>6</contextinstanceid>
+    <info>The default category for questions shared in context 'Sample'.</info>
+    <infoformat>0</infoformat>
+    <stamp>localhost:11443+231213215713+TgRySI</stamp>
+    <parent>42</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <question_bank_entries>
+      <question_bank_entry id="178">
+        <questioncategoryid>43</questioncategoryid>
+        <idnumber>$@NULL@$</idnumber>
+        <ownerid>2</ownerid>
+        <question_version>
+          <question_versions id="201">
+            <version>1</version>
+            <status>ready</status>
+            <questions>
+              <question id="201">
+                <parent>0</parent>
+                <name>A typical TE multiple choice question - one answer</name>
+                <questiontext>A typical TE multiple choice question - one answer</questiontext>
+                <questiontextformat>4</questiontextformat>
+                <generalfeedback>This is why this is the answer</generalfeedback>
+                <generalfeedbackformat>0</generalfeedbackformat>
+                <defaultmark>1.0000000</defaultmark>
+                <penalty>0.3333333</penalty>
+                <qtype>multichoice</qtype>
+                <length>1</length>
+                <stamp>localhost:11443+231213220014+NDnqV4</stamp>
+                <timecreated>1702504814</timecreated>
+                <timemodified>1702504814</timemodified>
+                <createdby>2</createdby>
+                <modifiedby>2</modifiedby>
+                <plugin_qtype_multichoice_question>
+                  <answers>
+                    <answer id="771">
+                      <answertext>An answer that is meant to fool you</answertext>
+                      <answerformat>1</answerformat>
+                      <fraction>-1.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                    <answer id="772">
+                      <answertext>The correct answer</answertext>
+                      <answerformat>1</answerformat>
+                      <fraction>1.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                    <answer id="773">
+                      <answertext>An obviously wrong answer</answertext>
+                      <answerformat>1</answerformat>
+                      <fraction>-1.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                  </answers>
+                  <multichoice id="168">
+                    <layout>0</layout>
+                    <single>1</single>
+                    <shuffleanswers>1</shuffleanswers>
+                    <correctfeedback>Your answer is correct.</correctfeedback>
+                    <correctfeedbackformat>1</correctfeedbackformat>
+                    <partiallycorrectfeedback>Your answer is partially correct.</partiallycorrectfeedback>
+                    <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+                    <incorrectfeedback>Your answer is incorrect.</incorrectfeedback>
+                    <incorrectfeedbackformat>1</incorrectfeedbackformat>
+                    <answernumbering>abc</answernumbering>
+                    <shownumcorrect>1</shownumcorrect>
+                    <showstandardinstruction>0</showstandardinstruction>
+                  </multichoice>
+                </plugin_qtype_multichoice_question>
+                <plugin_qbank_comment_question>
+                  <comments>
+                  </comments>
+                </plugin_qbank_comment_question>
+                <plugin_qbank_customfields_question>
+                  <customfields>
+                  </customfields>
+                </plugin_qbank_customfields_question>
+                <question_hints>
+                </question_hints>
+                <tags>
+                </tags>
+              </question>
+            </questions>
+          </question_versions>
+          <question_versions id="202">
+            <version>2</version>
+            <status>ready</status>
+            <questions>
+              <question id="202">
+                <parent>0</parent>
+                <name>A typical TE multiple choice question - one answer</name>
+                <questiontext>A typical TE multiple choice question - one answer</questiontext>
+                <questiontextformat>4</questiontextformat>
+                <generalfeedback>This is why this is the answer</generalfeedback>
+                <generalfeedbackformat>0</generalfeedbackformat>
+                <defaultmark>1.0000000</defaultmark>
+                <penalty>0.3333333</penalty>
+                <qtype>multichoice</qtype>
+                <length>1</length>
+                <stamp>localhost:11443+231213220044+F5UCRC</stamp>
+                <timecreated>1702504844</timecreated>
+                <timemodified>1702504844</timemodified>
+                <createdby>2</createdby>
+                <modifiedby>2</modifiedby>
+                <plugin_qtype_multichoice_question>
+                  <answers>
+                    <answer id="774">
+                      <answertext>An answer that is meant to fool you</answertext>
+                      <answerformat>1</answerformat>
+                      <fraction>0.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                    <answer id="775">
+                      <answertext>The correct answer</answertext>
+                      <answerformat>1</answerformat>
+                      <fraction>1.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                    <answer id="776">
+                      <answertext>An obviously wrong answer</answertext>
+                      <answerformat>1</answerformat>
+                      <fraction>0.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                  </answers>
+                  <multichoice id="169">
+                    <layout>0</layout>
+                    <single>1</single>
+                    <shuffleanswers>1</shuffleanswers>
+                    <correctfeedback>Your answer is correct.</correctfeedback>
+                    <correctfeedbackformat>1</correctfeedbackformat>
+                    <partiallycorrectfeedback>Your answer is partially correct.</partiallycorrectfeedback>
+                    <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+                    <incorrectfeedback>Your answer is incorrect.</incorrectfeedback>
+                    <incorrectfeedbackformat>1</incorrectfeedbackformat>
+                    <answernumbering>abc</answernumbering>
+                    <shownumcorrect>1</shownumcorrect>
+                    <showstandardinstruction>0</showstandardinstruction>
+                  </multichoice>
+                </plugin_qtype_multichoice_question>
+                <plugin_qbank_comment_question>
+                  <comments>
+                  </comments>
+                </plugin_qbank_comment_question>
+                <plugin_qbank_customfields_question>
+                  <customfields>
+                  </customfields>
+                </plugin_qbank_customfields_question>
+                <question_hints>
+                </question_hints>
+                <tags>
+                </tags>
+              </question>
+            </questions>
+          </question_versions>
+          <question_versions id="204">
+            <version>3</version>
+            <status>ready</status>
+            <questions>
+              <question id="204">
+                <parent>0</parent>
+                <name>A typical TE multiple choice question - one answer</name>
+                <questiontext>A typical TE multiple choice question - one answer</questiontext>
+                <questiontextformat>4</questiontextformat>
+                <generalfeedback>This is why this is the answer</generalfeedback>
+                <generalfeedbackformat>4</generalfeedbackformat>
+                <defaultmark>1.0000000</defaultmark>
+                <penalty>0.3333333</penalty>
+                <qtype>multichoice</qtype>
+                <length>1</length>
+                <stamp>localhost:11443+231213220302+TRodCn</stamp>
+                <timecreated>1702504982</timecreated>
+                <timemodified>1702504982</timemodified>
+                <createdby>2</createdby>
+                <modifiedby>2</modifiedby>
+                <plugin_qtype_multichoice_question>
+                  <answers>
+                    <answer id="781">
+                      <answertext>An answer that is meant to fool you</answertext>
+                      <answerformat>4</answerformat>
+                      <fraction>0.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                    <answer id="782">
+                      <answertext>The correct answer</answertext>
+                      <answerformat>4</answerformat>
+                      <fraction>1.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                    <answer id="783">
+                      <answertext>An obviously wrong answer</answertext>
+                      <answerformat>4</answerformat>
+                      <fraction>0.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                  </answers>
+                  <multichoice id="171">
+                    <layout>0</layout>
+                    <single>1</single>
+                    <shuffleanswers>1</shuffleanswers>
+                    <correctfeedback>Your answer is correct.</correctfeedback>
+                    <correctfeedbackformat>1</correctfeedbackformat>
+                    <partiallycorrectfeedback>Your answer is partially correct.</partiallycorrectfeedback>
+                    <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+                    <incorrectfeedback>Your answer is incorrect.</incorrectfeedback>
+                    <incorrectfeedbackformat>1</incorrectfeedbackformat>
+                    <answernumbering>abc</answernumbering>
+                    <shownumcorrect>1</shownumcorrect>
+                    <showstandardinstruction>0</showstandardinstruction>
+                  </multichoice>
+                </plugin_qtype_multichoice_question>
+                <plugin_qbank_comment_question>
+                  <comments>
+                  </comments>
+                </plugin_qbank_comment_question>
+                <plugin_qbank_customfields_question>
+                  <customfields>
+                  </customfields>
+                </plugin_qbank_customfields_question>
+                <question_hints>
+                </question_hints>
+                <tags>
+                </tags>
+              </question>
+            </questions>
+          </question_versions>
+        </question_version>
+      </question_bank_entry>
+      <question_bank_entry id="179">
+        <questioncategoryid>43</questioncategoryid>
+        <idnumber>$@NULL@$</idnumber>
+        <ownerid>2</ownerid>
+        <question_version>
+          <question_versions id="203">
+            <version>1</version>
+            <status>ready</status>
+            <questions>
+              <question id="203">
+                <parent>0</parent>
+                <name>This is a multi-answer multiple choice?</name>
+                <questiontext>This is a multi-answer multiple choice?</questiontext>
+                <questiontextformat>4</questiontextformat>
+                <generalfeedback>This is why this is the answer</generalfeedback>
+                <generalfeedbackformat>0</generalfeedbackformat>
+                <defaultmark>1.0000000</defaultmark>
+                <penalty>0.3333333</penalty>
+                <qtype>multichoice</qtype>
+                <length>1</length>
+                <stamp>localhost:11443+231213220242+Fs1qHS</stamp>
+                <timecreated>1702504962</timecreated>
+                <timemodified>1702504962</timemodified>
+                <createdby>2</createdby>
+                <modifiedby>2</modifiedby>
+                <plugin_qtype_multichoice_question>
+                  <answers>
+                    <answer id="777">
+                      <answertext>Not a correct choice</answertext>
+                      <answerformat>4</answerformat>
+                      <fraction>-0.5000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                    <answer id="778">
+                      <answertext>Another incorrect choice</answertext>
+                      <answerformat>4</answerformat>
+                      <fraction>-0.5000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                    <answer id="779">
+                      <answertext>One you should choose</answertext>
+                      <answerformat>4</answerformat>
+                      <fraction>0.5000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                    <answer id="780">
+                      <answertext>Another you should choose</answertext>
+                      <answerformat>4</answerformat>
+                      <fraction>0.5000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                  </answers>
+                  <multichoice id="170">
+                    <layout>0</layout>
+                    <single>0</single>
+                    <shuffleanswers>1</shuffleanswers>
+                    <correctfeedback>Your answer is correct.</correctfeedback>
+                    <correctfeedbackformat>1</correctfeedbackformat>
+                    <partiallycorrectfeedback>Your answer is partially correct.</partiallycorrectfeedback>
+                    <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+                    <incorrectfeedback>Your answer is incorrect.</incorrectfeedback>
+                    <incorrectfeedbackformat>1</incorrectfeedbackformat>
+                    <answernumbering>abc</answernumbering>
+                    <shownumcorrect>1</shownumcorrect>
+                    <showstandardinstruction>0</showstandardinstruction>
+                  </multichoice>
+                </plugin_qtype_multichoice_question>
+                <plugin_qbank_comment_question>
+                  <comments>
+                  </comments>
+                </plugin_qbank_comment_question>
+                <plugin_qbank_customfields_question>
+                  <customfields>
+                  </customfields>
+                </plugin_qbank_customfields_question>
+                <question_hints>
+                </question_hints>
+                <tags>
+                </tags>
+              </question>
+            </questions>
+          </question_versions>
+        </question_version>
+      </question_bank_entry>
+      <question_bank_entry id="180">
+        <questioncategoryid>43</questioncategoryid>
+        <idnumber>$@NULL@$</idnumber>
+        <ownerid>2</ownerid>
+        <question_version>
+          <question_versions id="205">
+            <version>1</version>
+            <status>ready</status>
+            <questions>
+              <question id="205">
+                <parent>0</parent>
+                <name>A simple true/fase?</name>
+                <questiontext>A simple true/fase?</questiontext>
+                <questiontextformat>4</questiontextformat>
+                <generalfeedback>This is why this is the answer</generalfeedback>
+                <generalfeedbackformat>4</generalfeedbackformat>
+                <defaultmark>1.0000000</defaultmark>
+                <penalty>1.0000000</penalty>
+                <qtype>truefalse</qtype>
+                <length>1</length>
+                <stamp>localhost:11443+231213220347+ciIG3E</stamp>
+                <timecreated>1702505027</timecreated>
+                <timemodified>1702505027</timemodified>
+                <createdby>2</createdby>
+                <modifiedby>2</modifiedby>
+                <plugin_qtype_truefalse_question>
+                  <answers>
+                    <answer id="784">
+                      <answertext>True</answertext>
+                      <answerformat>0</answerformat>
+                      <fraction>1.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                    <answer id="785">
+                      <answertext>False</answertext>
+                      <answerformat>0</answerformat>
+                      <fraction>0.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                  </answers>
+                  <truefalse id="23">
+                    <trueanswer>784</trueanswer>
+                    <falseanswer>785</falseanswer>
+                    <showstandardinstruction>0</showstandardinstruction>
+                  </truefalse>
+                </plugin_qtype_truefalse_question>
+                <plugin_qbank_comment_question>
+                  <comments>
+                  </comments>
+                </plugin_qbank_comment_question>
+                <plugin_qbank_customfields_question>
+                  <customfields>
+                  </customfields>
+                </plugin_qbank_customfields_question>
+                <question_hints>
+                </question_hints>
+                <tags>
+                </tags>
+              </question>
+            </questions>
+          </question_versions>
+        </question_version>
+      </question_bank_entry>
+      <question_bank_entry id="181">
+        <questioncategoryid>43</questioncategoryid>
+        <idnumber>$@NULL@$</idnumber>
+        <ownerid>2</ownerid>
+        <question_version>
+          <question_versions id="206">
+            <version>1</version>
+            <status>ready</status>
+            <questions>
+              <question id="206">
+                <parent>0</parent>
+                <name>What is this black that you need to fill in: `_____________`.</name>
+                <questiontext>What is this black that you need to fill in: `_____________`.</questiontext>
+                <questiontextformat>4</questiontextformat>
+                <generalfeedback></generalfeedback>
+                <generalfeedbackformat>0</generalfeedbackformat>
+                <defaultmark>1.0000000</defaultmark>
+                <penalty>0.3333333</penalty>
+                <qtype>shortanswer</qtype>
+                <length>1</length>
+                <stamp>localhost:11443+231213220505+mrNKz7</stamp>
+                <timecreated>1702505105</timecreated>
+                <timemodified>1702505105</timemodified>
+                <createdby>2</createdby>
+                <modifiedby>2</modifiedby>
+                <plugin_qtype_shortanswer_question>
+                  <answers>
+                    <answer id="786">
+                      <answertext>blank word</answertext>
+                      <answerformat>0</answerformat>
+                      <fraction>1.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                  </answers>
+                  <shortanswer id="1">
+                    <usecase>0</usecase>
+                  </shortanswer>
+                </plugin_qtype_shortanswer_question>
+                <plugin_qbank_comment_question>
+                  <comments>
+                  </comments>
+                </plugin_qbank_comment_question>
+                <plugin_qbank_customfields_question>
+                  <customfields>
+                  </customfields>
+                </plugin_qbank_customfields_question>
+                <question_hints>
+                </question_hints>
+                <tags>
+                </tags>
+              </question>
+            </questions>
+          </question_versions>
+        </question_version>
+      </question_bank_entry>
+    </question_bank_entries>
+  </question_category>
+</question_categories>

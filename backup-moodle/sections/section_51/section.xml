@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="51">
+  <number>2</number>
+  <name>Deep</name>
+  <summary>A Deep dive into details.
+
+**Learning Objectives:**
+
+- Show a second section
+- Learn what this looks like</summary>
+  <summaryformat>4</summaryformat>
+  <sequence>147,148,149</sequence>
+  <visible>1</visible>
+  <availabilityjson>{"op":"&amp;","c":[],"showc":[]}</availabilityjson>
+  <timemodified>1702505825</timemodified>
+</section>
