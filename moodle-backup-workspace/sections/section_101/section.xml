@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<section id="101">
+  <number>0</number>
+  <name>Introduction</name>
+  <summary>Overview of the basics.
+
+**Learning Objectives**:
+- Grasp the overview of the sample.
+- Know what is in the course</summary>
+  <summaryformat>4</summaryformat>
+  <sequence />
+  <visible>1</visible>
+  <availabilityjson>$@NULL@$</availabilityjson>
+  <timemodified>1702692974</timemodified>
+</section>
