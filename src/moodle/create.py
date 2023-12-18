@@ -130,7 +130,7 @@ def update_moodle_backup_file(update_file, course_data, workspace_dir):
     tree.write(os.path.join(workspace_dir, update_file), encoding='UTF-8', xml_declaration=True)
 
 
-def generate_sections(update_file, course_data, workspace_dir):
+def gen_sections(update_file, course_data, workspace_dir):
     topics = course_data.get('topics', [])
     num_sections = len(topics)
     sections_dir = f"{workspace_dir}/sections"
@@ -177,6 +177,9 @@ def generate_sections(update_file, course_data, workspace_dir):
             ET.SubElement(setting_element, 'section').text = f'section_{section_id}'
             ET.SubElement(setting_element, 'name').text = f'section_{section_id}_{setting_name}'
             ET.SubElement(setting_element, 'value').text = '1' if setting_name == 'included' else '0'
+        
+        #gen items
+        gen_content_items(section_id, topics[i].get('content_items', []), workspace_dir)
 
         # Increment section_id for next iteration
         section_id += 1
@@ -184,7 +187,41 @@ def generate_sections(update_file, course_data, workspace_dir):
     # Save the updated moodle_backup.xml
     tree.write(os.path.join(workspace_dir, update_file), encoding='UTF-8', xml_declaration=True)
 
+def gen_content_items(section_id, content_items, workspace_dir):
+    for item in content_items:
+        match item.get('type'):
+            case 'VIDEO':
+                gen_video(section_id, item, workspace_dir)
+            case 'QUIZ':
+                gen_quiz(section_id, item, workspace_dir)
+            case 'ARTICLE':
+                gen_article(section_id, item, workspace_dir)
+            case 'SLIDES':
+                gen_slides(section_id, item, workspace_dir)
+            case 'LESSON':
+                gen_lesson(section_id, item, workspace_dir)
+            case 'LABEL':
+                gen_label(section_id, item, workspace_dir)
+            case _:
+                logging.info(f"Unknown content type: {item.get('type')}")
 
+def gen_video(section_id, video_data, workspace_dir):
+    logging.info(video_data.get('name'))
+
+def gen_quiz(section_id, quiz_data, workspace_dir):
+    logging.info(quiz_data.get('name'))
+
+def gen_article(section_id, article_data, workspace_dir):
+    logging.info(article_data.get('name'))
+
+def gen_slides(section_id, slides_data, workspace_dir):
+    logging.info(slides_data.get('name'))
+
+def gen_lesson(section_id, lesson_data, workspace_dir):
+    logging.info(lesson_data.get('name'))
+
+def gen_label(section_id, label_data, workspace_dir):
+    logging.info(label_data.get('name'))
 
 def main():
 
@@ -202,7 +239,7 @@ def main():
 
     update_course_file('course/course.xml', course_data, workspace_dir)
     update_moodle_backup_file('moodle_backup.xml', course_data, workspace_dir)
-    generate_sections('moodle_backup.xml', course_data, workspace_dir)
+    gen_sections('moodle_backup.xml', course_data, workspace_dir)
 
 
 

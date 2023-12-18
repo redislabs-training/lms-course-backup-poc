@@ -1,12 +1,4 @@
 [[package]]
-name = "logging"
-version = "0.4.9.6"
-description = "A logging module for Python"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "pyyaml"
 version = "6.0.1"
 description = "YAML parser and emitter for Python"
@@ -16,9 +8,8 @@ python-versions = ">=3.6"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.8"
-content-hash = "0b3025b385d1bda7ef2fe61a6b6b718682a62c3f0da6d85e8422ac2554b28a65"
+python-versions = "*"
+content-hash = "d3ba7a374e79671c8b18c2d51105f707c2cd013f2afe9c00823e8db96dd1b58b"
 
 [metadata.files]
-logging = []
 pyyaml = []
