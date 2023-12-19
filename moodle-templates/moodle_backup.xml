@@ -31,10 +31,12 @@
       </detail>
     </details>
     <contents>
+      <activities>
+      </activities>
       <sections>
         <section>
           <sectionid>100</sectionid>
-          <title>$GENERAL_SECTION</title>
+          <title> </title>
           <directory>sections/section_100</directory>
         </section>
       </sections>
