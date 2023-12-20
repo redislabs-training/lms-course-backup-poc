@@ -10,7 +10,8 @@ import random
 import string
 import html
 
-from .ids import IDs
+from .IDs import IDs
+from .Lesson import LVals, LPage, LAnswer
 
 # globals for now
 current_timestamp = int(time.time())
@@ -67,10 +68,10 @@ def create_workspace(workspace_dir, template_dir):
     # Copy the entire contents of the template directory
     shutil.copytree(template_dir, workspace_dir, dirs_exist_ok=True)
 
-def add_element_backup_file(parent_name, child_name, new_element, workspace_dir):
-    logging.debug(f"add_element_backup_file - parent_name: {parent_name}, child_name: {child_name}")
-    backup_file = os.path.join(workspace_dir, 'moodle_backup.xml')
-    tree = ET.parse(backup_file)
+def add_element_to_file(parent_name, child_name, new_element, file_path):
+    logging.debug(f"add_element_to_file - parent_name: {parent_name}, child_name: {child_name}")
+    file = os.path.join(workspace_dir, file_path)
+    tree = ET.parse(file)
     root = tree.getroot()
     parent = root.find(f".//{parent_name}")
 
@@ -79,7 +80,7 @@ def add_element_backup_file(parent_name, child_name, new_element, workspace_dir)
         sub = ET.SubElement(child, key)
         sub.text = value
     parent.append(child)
-    tree.write(backup_file, encoding='UTF-8', xml_declaration=True)
+    tree.write(file, encoding='UTF-8', xml_declaration=True)
 
 
 def update_course_file(course_data):
@@ -209,7 +210,7 @@ def gen_sections(course_data):
             'directory': f'sections/{section_folder}'
         }
 
-        add_element_backup_file('information/contents/sections', 'section', section_block, workspace_dir)
+        add_element_to_file('information/contents/sections', 'section', section_block, 'moodle_backup.xml')
         
         setting_included = {
             'level': 'section',
@@ -218,7 +219,7 @@ def gen_sections(course_data):
             'value': str(1)
         }
 
-        add_element_backup_file('information/settings', 'setting', setting_included, workspace_dir)
+        add_element_to_file('information/settings', 'setting', setting_included, 'moodle_backup.xml')
 
         setting_userinfo = {
             'level': 'activity',
@@ -227,7 +228,7 @@ def gen_sections(course_data):
             'value': str(0)
         }
 
-        add_element_backup_file('information/settings', 'setting', setting_userinfo, workspace_dir)
+        add_element_to_file('information/settings', 'setting', setting_userinfo, 'moodle_backup.xml')
 
         
         content_items = topics[i].get('content_items', [])
@@ -235,13 +236,13 @@ def gen_sections(course_data):
         for item in content_items:
             match item.get('type'):
                 case 'VIDEO':
-                    gen_video(item)
+                    gen_page(item)
                 case 'QUIZ':
                     gen_quiz(item)
                 case 'ARTICLE':
-                    gen_article(item)
+                    gen_page(item)
                 case 'SLIDES':
-                    gen_slides(item)
+                    gen_resource(item)
                 case 'LESSON':
                     gen_lesson(item)
                 case 'LABEL':
@@ -264,111 +265,69 @@ def gen_sections(course_data):
                 # Update the sequence element
                 sequence_element.text = updated_sequence       
         
-            ids.incr_module_id
-            ids.incr_activity_id
-            ids.incr_context_id
+            ids.incr_module()
+            logging.debug(f'module id:{ids.module}')
+            ids.incr_activity()
+            ids.incr_context()
 
         section_tree.write(f"{new_section_folder_full_path}/section.xml", encoding='UTF-8', xml_declaration=True)
 
-        ids.incr_section_id
+        ids.incr_section()
 
+def gen_activity_general(type, name, activity_folder, activity_path):
 
+    shutil.copytree(f"{workspace_dir}/activities/templates/general", f"{workspace_dir}/{activity_path}", dirs_exist_ok=True)
 
-def gen_video(video_data):
-
-    logging.debug(video_data.get('name'))
-    logging.debug(video_data.get('ref'))
-
-    # Copy page template into new activity
-    video_folder = f"page_{ids.module}"
-    video_activity_path = f"activities/{video_folder}"
-    shutil.copytree(f"{workspace_dir}/activities/templates/page", f"{workspace_dir}/{video_activity_path}", dirs_exist_ok=True)
+    shutil.copy(f"{workspace_dir}/activities/templates/{type}.xml", f"{workspace_dir}/{activity_path}/")
 
     activity = {
         'moduleid': str(ids.module),
         'sectionid': str(ids.section),
         'modulename': 'page',
-        'title': video_data.get('name'),
-        'directory': video_activity_path
+        'title': name,
+        'directory': activity_path
     }
 
-    add_element_backup_file('information/contents/activities', 'activity', activity, workspace_dir)
+    add_element_to_file('information/contents/activities', 'activity', activity, 'moodle_backup.xml')
 
     setting_included = {
         'level': 'activity',
-        'activity': video_folder,
-        'name': f"{video_folder}_included",
+        'activity': activity_folder,
+        'name': f"{activity_folder}_included",
         'value': str(1)
     }
 
-    add_element_backup_file('information/settings', 'setting', setting_included, workspace_dir)
+    add_element_to_file('information/settings', 'setting', setting_included, 'moodle_backup.xml')
 
 
     setting_userinfo = {
         'level': 'activity',
-        'activity': video_folder,
-        'name': f"{video_folder}_userinfo",
+        'activity': activity_folder,
+        'name': f"{activity_folder}_userinfo",
         'value': str(0)
     }
 
-    add_element_backup_file('information/settings', 'setting', setting_userinfo, workspace_dir)
+    add_element_to_file('information/settings', 'setting', setting_userinfo, 'moodle_backup.xml')
 
-    # page.xml
-    page_tree = ET.parse(f"{workspace_dir}/{video_activity_path}/page.xml")
+   # basic updates to the main activity file
+    tree = ET.parse(f"{workspace_dir}/{activity_path}/{type}.xml")
 
-    page_tree_root = page_tree.getroot()
-    page_tree_root.set('id', str(ids.activity))
-    page_tree_root.set('moduleid', str(ids.module))
-    page_tree_root.set('contextid', str(ids.context))
+    tree_root = tree.getroot()
+    tree_root.set('id', str(ids.activity))
+    tree_root.set('moduleid', str(ids.module))
+    tree_root.set('contextid', str(ids.context))
     
 
-    page_element = page_tree_root.find('.//page')
-    page_element.set('id', str(ids.activity))
+    main_element = tree_root.find(f'.//{type}')
+    main_element.set('id', str(ids.activity))
 
-    name_element = page_tree_root.find('.//page/name')
-    name_element.text = video_data.get('name')
-    
-    # Read the content from the external file
-    # Determine the file type and set contentformat accordingly
-    if video_data.get('ref').startswith('.'):
-        ref = f"{course_path}/{video_data.get('ref')[2:]}" 
-    elif video_data.get('ref').startswith('.md'):
-        ref = video_data.get('ref')
-    else:
-        raise ValueError("Unsupported start for VIDEO ref")
-    
-    with open(ref, 'r', encoding='utf-8') as file:
-        content = file.read()
+    name_element = tree_root.find(f'.//{type}/name')
+    name_element.text = name
 
-    # Encode the content for XML
-    encoded_content = html.escape(content)
-
-    content_element = page_tree_root.find('.//page/content')
-    content_element.text = str(encoded_content)
-
-    # Determine the file type and set contentformat accordingly
-    if video_data.get('ref').endswith('.html'):
-        contentformat = '1'  # HTML
-    elif video_data.get('ref').endswith('.md'):
-        contentformat = '4'  # Markdown
-    else:
-        raise ValueError("Unsupported file type")
-    
-    contentformat_element = page_tree_root.find('.//page/contentformat')
-    contentformat_element.text = str(contentformat)
-
-    display_element = page_tree_root.find('.//page/display')
-    if display_element is not None:
-        display_element.text = str(5)
-
-    modtime_element = page_tree_root.find('.//page/timemodified')
-    if modtime_element is not None:
-        modtime_element.text = str(current_timestamp)
-
-    page_tree.write(f"{workspace_dir}/{video_activity_path}/page.xml", encoding='UTF-8', xml_declaration=True)
+    tree.write(f"{workspace_dir}/{activity_path}/{type}.xml", encoding='UTF-8', xml_declaration=True)
 
     # module.xml
-    module_tree = ET.parse(f"{workspace_dir}/{video_activity_path}/module.xml")
+    module_tree = ET.parse(f"{workspace_dir}/{activity_path}/module.xml")
 
     module_tree_root = module_tree.getroot()
     module_tree_root.set('id', str(ids.module))
@@ -386,23 +345,195 @@ def gen_video(video_data):
     if addedtime_element is not None:
         addedtime_element.text = str(current_timestamp)
 
-    module_tree.write(f"{workspace_dir}/{video_activity_path}/module.xml", encoding='UTF-8', xml_declaration=True)
+    module_tree.write(f"{workspace_dir}/{activity_path}/module.xml", encoding='UTF-8', xml_declaration=True)
+    
+def gen_page(activity_data):
+    
+    logging.debug(activity_data.get('name'))
+    logging.debug(activity_data.get('ref'))
 
-def gen_quiz(quiz_data):
-    logging.info(quiz_data.get('name'))
 
-def gen_article(article_data):
-    logging.info(article_data.get('name'))
+    # Copy page template into new activity
+    type = 'page'
+    activity_folder = f"{type}_{ids.module}"
+    activity_path = f"activities/{activity_folder}"
 
-def gen_slides(slides_data):
-    logging.info(slides_data.get('name'))
+    gen_activity_general(type, activity_data.get('name'), activity_folder, activity_path)
 
-def gen_lesson(lesson_data):
-    logging.info(lesson_data.get('name'))
+    # page.xml
+    page_tree = ET.parse(f"{workspace_dir}/{activity_path}/{type}.xml")
 
-def gen_label(label_data):
-    logging.info(label_data.get('name'))
+    page_tree_root = page_tree.getroot()
+    
+    # Read the content from the external file
+    # Determine the file type and set contentformat accordingly
+    if activity_data.get('ref').startswith('.'):
+        ref = f"{course_path}/{activity_data.get('ref')[2:]}" 
+    elif activity_data.get('ref').startswith('.md'):
+        ref = activity_data.get('ref')
+    else:
+        raise ValueError("Unsupported start for activity ref")
+    
+    with open(ref, 'r', encoding='utf-8') as file:
+        content = file.read()
 
+    # Encode the content for XML
+    encoded_content = html.escape(content)
+
+    content_element = page_tree_root.find('.//page/content')
+    content_element.text = str(encoded_content)
+
+    # Determine the file type and set contentformat accordingly
+    if activity_data.get('ref').endswith('.html'):
+        contentformat = '1'  # HTML
+    elif activity_data.get('ref').endswith('.md'):
+        contentformat = '4'  # Markdown
+    else:
+        raise ValueError("Unsupported file type")
+    
+    contentformat_element = page_tree_root.find('.//page/contentformat')
+    contentformat_element.text = str(contentformat)
+
+    display_element = page_tree_root.find('.//page/display')
+    if display_element is not None:
+        display_element.text = str(5)
+
+    modtime_element = page_tree_root.find('.//page/timemodified')
+    if modtime_element is not None:
+        modtime_element.text = str(current_timestamp)
+
+    page_tree.write(f"{workspace_dir}/{activity_path}/page.xml", encoding='UTF-8', xml_declaration=True)
+
+def gen_lesson(activity_data):
+    logging.debug(activity_data.get('name'))
+    logging.debug(activity_data.get('ref'))
+
+    # Copy page template into new activity
+    type = 'lesson'
+    activity_folder = f"{type}_{ids.module}"
+    activity_path = f"activities/{activity_folder}"
+
+    gen_activity_general(type, activity_data.get('name'), activity_folder, activity_path)
+
+    # lesson.xml
+    lesson_tree = ET.parse(f"{workspace_dir}/{activity_path}/{type}.xml")
+    lesson_tree_root = lesson_tree.getroot()
+    lesson_vals = LVals()
+
+    name_element = lesson_tree_root.find('.//lesson/name')
+    name_element.text = activity_data.get('name')
+
+    course_element = lesson_tree_root.find('.//lesson/course')
+    course_element.text = str(ids.course)
+
+    modified_element = lesson_tree_root.find('.//lesson/timemodified')
+    modified_element.text = activity_data.get(current_timestamp)
+
+    lesson_tree.write(f"{workspace_dir}/{activity_path}/lesson.xml", encoding='UTF-8', xml_declaration=True)
+    
+    # Read the content from the external file
+    ref = f"{course_path}/{activity_data.get('ref')[2:]}"
+    with open(ref, 'r', encoding='utf-8') as file:
+        markdown_text = file.read()
+    
+    sections = markdown_text.split('##')[1:]  # Split by '##' and skip the first chunk if it's before the first '##'
+
+    num_sections = len(sections)
+
+    pages = []
+
+    for i, section in enumerate(sections):
+        lines = section.strip().split('\n', 1)
+        heading = lines[0].strip()
+        content = lines[1].strip() if len(lines) > 1 else ''
+
+        if i == 0:
+            beg_answer = LAnswer(id=str(ids.lesson_answer),
+                                 jumpto=lesson_vals.next_jumpto,
+                                 timecreated=str(current_timestamp),
+                                 answer_text=lesson_vals.next_text)
+            ids.incr_lesson_answer()
+            pages.append(LPage(id=ids.lesson_page,
+                         nextpageid=str(ids.lesson_page+1),
+                         timecreated=current_timestamp,
+                         title=heading,contents=content,
+                         answers=[beg_answer]))
+        elif i == num_sections - 1:
+            mid1_answer = LAnswer(id=str(ids.lesson_answer),
+                                  jumpto=lesson_vals.previous_jumpto,
+                                  timecreated=str(current_timestamp),
+                                  answer_text=lesson_vals.previous_text)
+            ids.incr_lesson_answer()
+            mid2_answer = LAnswer(id=ids.lesson_answer,
+                                  jumpto=lesson_vals.next_jumpto,
+                                  timecreated=str(current_timestamp),
+                                  answer_text=lesson_vals.next_text)
+            ids.incr_lesson_answer()
+            pages.append(LPage(id=ids.lesson_page,
+                         previouspageid=str(ids.lesson_page-1),
+                         nextpageid=str(ids.lesson_page+1),
+                         timecreated=str(current_timestamp),
+                         title=heading,contents=content,
+                         answers=[mid1_answer,mid2_answer]))
+        else: 
+            mid1_answer = LAnswer(id=ids.lesson_answer, 
+                                  jumpto=lesson_vals.previous_jumpto, 
+                                  timecreated=current_timestamp, 
+                                  answer_text=lesson_vals.previous_text)
+            ids.incr_lesson_answer()
+            end_answer = LAnswer(id=ids.lesson_answer, 
+                                 jumpto=lesson_vals.end_jumpto, 
+                                 timecreated=current_timestamp, 
+                                 answer_text=lesson_vals.end_text)
+            ids.incr_lesson_answer()
+            pages.append(LPage(id=ids.lesson_page,
+                         previouspageid=str(ids.lesson_page-1),
+                         timecreated=current_timestamp,
+                         title=heading,contents=content,
+                         answers=[mid1_answer,end_answer]))
+        ids.incr_lesson_page()
+
+    for page in pages:
+        print(page.__dict__) 
+
+ 
+
+def gen_quiz(activity_data):
+    logging.debug(activity_data.get('name'))
+    logging.debug(activity_data.get('ref'))
+
+    # Copy page template into new activity
+    type = 'quiz'
+    activity_folder = f"{type}_{ids.module}"
+    activity_path = f"activities/{activity_folder}"
+
+    gen_activity_general(type, activity_data.get('name'), activity_folder, activity_path)
+
+def gen_resource(activity_data):
+    logging.debug(activity_data.get('name'))
+    logging.debug(activity_data.get('ref'))
+
+    # Copy page template into new activity
+    type = 'resource'
+    activity_folder = f"{type}_{ids.module}"
+    activity_path = f"activities/{activity_folder}"
+
+    gen_activity_general(type, activity_data.get('name'), activity_folder, activity_path)
+
+
+def gen_label(activity_data):
+    logging.debug(activity_data.get('name'))
+    logging.debug(activity_data.get('ref'))
+
+    # # Copy page template into new activity
+    # type = 'label'
+    # activity_folder = f"{type}_{ids.module}"
+    # activity_path = f"activities/{activity_folder}"
+
+    # gen_activity_general(type, activity_data.get('name'), activity_folder, activity_path)
+
+def remove_templates():
+    shutil.rmtree(f'{workspace_dir}/activities/templates')
 
 def main():
 
@@ -417,6 +548,7 @@ def main():
     update_course_file(course_data)
     update_moodle_backup_file(course_data)
     gen_sections(course_data)
+    remove_templates()
 
 
 
