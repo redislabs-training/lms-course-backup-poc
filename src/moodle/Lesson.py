@@ -7,6 +7,7 @@ class LVals:
     end_jumpto = '-9'
 
 class LAnswer:
+    tag = 'answer'
     def __init__(self, **kwargs):
         self.id = kwargs.get('id', 0)
         self.jumpto = kwargs.get('jumpto', -1)
@@ -19,8 +20,26 @@ class LAnswer:
         self.response = kwargs.get('response', '$@NULL@$')
         self.answerformat = kwargs.get('answerformat', 0)
         self.responseformat = kwargs.get('responseformat', 0)
+        
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'jumpto': self.jumpto,
+            'grade': self.grade,
+            'score': self.score,
+            'flags': self.flags,
+            'timecreated': self.timecreated,
+            'timemodified': self.timemodified,
+            'answer_text': self.answer_text,
+            'response': self.response,
+            'answerformat': self.answerformat,
+            'responseformat': self.responseformat,
+            'tag': self.tag
+        }
+    
 class LPage:
+    tag = 'page'
     def __init__(self, **kwargs):
         self.id = kwargs.get('id', 0)
         self.prevpageid = kwargs.get('prevpageid', 0)
@@ -35,3 +54,21 @@ class LPage:
         self.contents = kwargs.get('contents', '')
         self.contentsformat = kwargs.get('contentsformat', 4)
         self.answers = kwargs.get('answers', [])
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'prevpageid': self.prevpageid,
+            'nextpageid': self.nextpageid,
+            'qtype': self.qtype,
+            'qoption': self.qoption,
+            'layout': self.layout,
+            'display': self.display,
+            'timecreated': self.timecreated,
+            'timemodified': self.timemodified,
+            'title': self.title,
+            'contents': self.contents,
+            'contentsformat': self.contentsformat,
+            'answers': [answer.to_dict() for answer in self.answers],
+            'tag': self.tag
+        }

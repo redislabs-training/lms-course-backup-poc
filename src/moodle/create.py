@@ -68,19 +68,59 @@ def create_workspace(workspace_dir, template_dir):
     # Copy the entire contents of the template directory
     shutil.copytree(template_dir, workspace_dir, dirs_exist_ok=True)
 
+# def add_element_to_file(parent_name, child_name, new_element, file_path):
+#     logging.debug(f"add_element_to_file - parent_name: {parent_name}, child_name: {child_name}")
+#     file = os.path.join(workspace_dir, file_path)
+#     tree = ET.parse(file)
+#     root = tree.getroot()
+#     parent = root.find(f".//{parent_name}")
+
+#     child = ET.Element(child_name)
+#     for key, value in new_element.items():
+#         sub = ET.SubElement(child, key)
+#         sub.text = value
+#     parent.append(child)
+#     tree.write(file, encoding='UTF-8', xml_declaration=True)
+
+
+def object_to_element(obj, tag=None):
+    """Convert an object into an XML element."""
+    if isinstance(obj, dict):
+        # If a tag is provided use it, otherwise use a default tag or extract from the object
+        element = ET.Element(tag if tag else obj.get('tag', 'item'))
+        for key, value in obj.items():
+            if key != 'tag':  # Exclude the 'tag' key from processing
+                if isinstance(value, (dict, list)):
+                    # Recursive call for nested structures
+                    child_element = object_to_element(value, key)
+                    element.append(child_element if isinstance(child_element, ET.Element) else ET.Element(key))
+                else:
+                    # Directly set text for simple values
+                    sub_element = ET.SubElement(element, key)
+                    sub_element.text = str(value)
+        return element
+    elif isinstance(obj, list):
+        # Create a container element for lists
+        container = ET.Element(tag if tag else 'items')
+        for item in obj:
+            child_element = object_to_element(item)
+            container.append(child_element)
+        return container
+    else:
+        # For simple objects, just return them for setting text
+        return obj
+
 def add_element_to_file(parent_name, child_name, new_element, file_path):
-    logging.debug(f"add_element_to_file - parent_name: {parent_name}, child_name: {child_name}")
-    file = os.path.join(workspace_dir, file_path)
-    tree = ET.parse(file)
+    tree = ET.parse(file_path)
     root = tree.getroot()
     parent = root.find(f".//{parent_name}")
 
-    child = ET.Element(child_name)
-    for key, value in new_element.items():
-        sub = ET.SubElement(child, key)
-        sub.text = value
-    parent.append(child)
-    tree.write(file, encoding='UTF-8', xml_declaration=True)
+    # Create a new element from the object
+    child_element = object_to_element(new_element, child_name)
+    parent.append(child_element)
+
+    tree.write(file_path, encoding='UTF-8', xml_declaration=True)
+
 
 
 def update_course_file(course_data):
@@ -210,7 +250,7 @@ def gen_sections(course_data):
             'directory': f'sections/{section_folder}'
         }
 
-        add_element_to_file('information/contents/sections', 'section', section_block, 'moodle_backup.xml')
+        add_element_to_file('information/contents/sections', 'section', section_block, f'{workspace_dir}/moodle_backup.xml')
         
         setting_included = {
             'level': 'section',
@@ -219,7 +259,7 @@ def gen_sections(course_data):
             'value': str(1)
         }
 
-        add_element_to_file('information/settings', 'setting', setting_included, 'moodle_backup.xml')
+        add_element_to_file('information/settings', 'setting', setting_included, f'{workspace_dir}/moodle_backup.xml')
 
         setting_userinfo = {
             'level': 'activity',
@@ -228,7 +268,7 @@ def gen_sections(course_data):
             'value': str(0)
         }
 
-        add_element_to_file('information/settings', 'setting', setting_userinfo, 'moodle_backup.xml')
+        add_element_to_file('information/settings', 'setting', setting_userinfo, f'{workspace_dir}/moodle_backup.xml')
 
         
         content_items = topics[i].get('content_items', [])
@@ -288,7 +328,7 @@ def gen_activity_general(type, name, activity_folder, activity_path):
         'directory': activity_path
     }
 
-    add_element_to_file('information/contents/activities', 'activity', activity, 'moodle_backup.xml')
+    add_element_to_file('information/contents/activities', 'activity', activity, f'{workspace_dir}/moodle_backup.xml')
 
     setting_included = {
         'level': 'activity',
@@ -297,7 +337,7 @@ def gen_activity_general(type, name, activity_folder, activity_path):
         'value': str(1)
     }
 
-    add_element_to_file('information/settings', 'setting', setting_included, 'moodle_backup.xml')
+    add_element_to_file('information/settings', 'setting', setting_included, f'{workspace_dir}/moodle_backup.xml')
 
 
     setting_userinfo = {
@@ -307,7 +347,7 @@ def gen_activity_general(type, name, activity_folder, activity_path):
         'value': str(0)
     }
 
-    add_element_to_file('information/settings', 'setting', setting_userinfo, 'moodle_backup.xml')
+    add_element_to_file('information/settings', 'setting', setting_userinfo, f'{workspace_dir}/moodle_backup.xml')
 
    # basic updates to the main activity file
     tree = ET.parse(f"{workspace_dir}/{activity_path}/{type}.xml")
@@ -440,7 +480,7 @@ def gen_lesson(activity_data):
 
     num_sections = len(sections)
 
-    pages = []
+    page_objects = []
 
     for i, section in enumerate(sections):
         lines = section.strip().split('\n', 1)
@@ -448,53 +488,57 @@ def gen_lesson(activity_data):
         content = lines[1].strip() if len(lines) > 1 else ''
 
         if i == 0:
-            beg_answer = LAnswer(id=str(ids.lesson_answer),
+            next_answer = LAnswer(id=str(ids.lesson_answer),
                                  jumpto=lesson_vals.next_jumpto,
                                  timecreated=str(current_timestamp),
                                  answer_text=lesson_vals.next_text)
             ids.incr_lesson_answer()
-            pages.append(LPage(id=ids.lesson_page,
+            page = LPage(id=ids.lesson_page,
                          nextpageid=str(ids.lesson_page+1),
                          timecreated=current_timestamp,
                          title=heading,contents=content,
-                         answers=[beg_answer]))
+                         answers=[next_answer])
         elif i == num_sections - 1:
-            mid1_answer = LAnswer(id=str(ids.lesson_answer),
+            prev_answer = LAnswer(id=str(ids.lesson_answer),
                                   jumpto=lesson_vals.previous_jumpto,
                                   timecreated=str(current_timestamp),
                                   answer_text=lesson_vals.previous_text)
             ids.incr_lesson_answer()
-            mid2_answer = LAnswer(id=ids.lesson_answer,
-                                  jumpto=lesson_vals.next_jumpto,
+            end_answer = LAnswer(id=ids.lesson_answer,
+                                  jumpto=lesson_vals.end_jumpto,
                                   timecreated=str(current_timestamp),
-                                  answer_text=lesson_vals.next_text)
+                                  answer_text=lesson_vals.end_text)
             ids.incr_lesson_answer()
-            pages.append(LPage(id=ids.lesson_page,
+            page = LPage(id=ids.lesson_page,
                          previouspageid=str(ids.lesson_page-1),
-                         nextpageid=str(ids.lesson_page+1),
                          timecreated=str(current_timestamp),
                          title=heading,contents=content,
-                         answers=[mid1_answer,mid2_answer]))
+                         answers=[prev_answer,end_answer])
         else: 
-            mid1_answer = LAnswer(id=ids.lesson_answer, 
+            prev_answer = LAnswer(id=ids.lesson_answer, 
                                   jumpto=lesson_vals.previous_jumpto, 
                                   timecreated=current_timestamp, 
                                   answer_text=lesson_vals.previous_text)
             ids.incr_lesson_answer()
-            end_answer = LAnswer(id=ids.lesson_answer, 
-                                 jumpto=lesson_vals.end_jumpto, 
+            next_answer = LAnswer(id=ids.lesson_answer, 
+                                 jumpto=lesson_vals.next_jumpto, 
                                  timecreated=current_timestamp, 
-                                 answer_text=lesson_vals.end_text)
+                                 answer_text=lesson_vals.next_text)
             ids.incr_lesson_answer()
-            pages.append(LPage(id=ids.lesson_page,
+            page = LPage(id=ids.lesson_page,
                          previouspageid=str(ids.lesson_page-1),
+                         nextpageid=str(ids.lesson_page+1),
                          timecreated=current_timestamp,
                          title=heading,contents=content,
-                         answers=[mid1_answer,end_answer]))
+                         answers=[prev_answer,next_answer])
+            
+        page_objects.append(page)
         ids.incr_lesson_page()
+    
 
-    for page in pages:
-        print(page.__dict__) 
+    pages = [page.to_dict() for page in page_objects]
+    
+    add_element_to_file('lesson', 'pages', pages, f'{workspace_dir}/{activity_path}/lesson.xml')
 
  
 
