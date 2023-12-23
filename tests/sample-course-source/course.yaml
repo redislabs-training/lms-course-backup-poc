@@ -10,6 +10,9 @@ learning_objectives:
 version: "v1.0.0"
 icon: "./course-logo.png"
 dependencies:
+  - id: "mod-sample-uses"
+    repo: "git@github.com:redislabs-training/mod-sample-uses.git"
+    version: "v0.3.0"
 topics:
 - name: "Introduction"
   type: "CONTENT"
@@ -40,3 +43,6 @@ topics:
   - name: "Deep Dive Lesson"
     type: "EXERCISE"
     ref: "./materials/deep/lessons/deep-dive.md"
+- name: "Uses"
+  type: "MODULE"
+  module: "mod-sample-uses"

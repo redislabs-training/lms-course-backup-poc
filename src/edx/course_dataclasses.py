@@ -2,7 +2,7 @@ import logging
 from dataclasses import dataclass
 from enum import Enum
 from typing import List, Optional, Union
-from .utilities import convert_content_item_type, convert_visibility, convert_course_type
+from .utilities import convert_content_item_type, convert_visibility, convert_course_type, convert_topic_type, validate_semver, initialize_topics
 
 class Visibility(Enum):
     INTERNAL = "INTERNAL"
@@ -115,6 +115,8 @@ class CourseModule:
 
     def __post_init__(self):
         self.visibility = convert_visibility(self.visibility, Visibility)
+        validate_semver(self.version)
+        self.topics = initialize_topics(self.topics, ContentCourseTopic, ModuleCourseTopic, TopicType)
 
     def to_dict(self):
         return {
@@ -141,9 +143,11 @@ class CourseTopic:
     name: str
     descr: Optional[str] = None
     visibility: Visibility = Visibility.PUBLIC
+    type: TopicType = TopicType.CONTENT
 
     def __post_init__(self):
         self.visibility = convert_visibility(self.visibility, Visibility)
+        self.type = convert_topic_type(self.type, TopicType)
 
 @dataclass
 class ContentCourseTopic(CourseTopic):
@@ -153,13 +157,13 @@ class ContentCourseTopic(CourseTopic):
     Attributes:
         content_items (List[ContentItem]): A list of content items associated with the topic.
     """
-    type: TopicType = TopicType.CONTENT
     learning_objectives: Optional[List[str]] = None 
     content_items: List['ContentItem'] = None
 
     def __post_init__(self):
         # Convert content item dictionaries to ContentItem objects
         self.content_items = [ContentItem(**item) for item in self.content_items]
+ 
 
     def to_dict(self):
         return {
@@ -178,7 +182,6 @@ class ModuleCourseTopic(CourseTopic):
     Attributes:
         module (CourseModule): The module associated with the topic.
     """
-    type: TopicType = TopicType.MODULE
     module: CourseModule = None
 
     def to_dict(self):
@@ -229,15 +232,9 @@ class Course:
     def __post_init__(self):
         self.visibility = convert_visibility(self.visibility, Visibility)
         self.type = convert_course_type(self.type, CourseType)
-        initialized_topics = []
-        for topic_data in self.topics:
-            if topic_data['type'] == TopicType.CONTENT.value:  # Assuming type is a string "CONTENT" or "MODULE"
-                initialized_topics.append(ContentCourseTopic(**topic_data))
-            elif topic_data['type'] == TopicType.MODULE.value:
-                initialized_topics.append(ModuleCourseTopic(**topic_data))
-            else:
-                raise ValueError(f"Unknown topic type: {topic_data['type']}")
-        self.topics = initialized_topics
+        self.dependencies = [Dependency(**dependency) for dependency in self.dependencies]
+        validate_semver(self.version)
+        self.topics = initialize_topics(self.topics, ContentCourseTopic, ModuleCourseTopic, TopicType)
 
     def to_dict(self):
         return {
