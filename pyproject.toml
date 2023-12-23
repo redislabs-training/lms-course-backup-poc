@@ -16,4 +16,5 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-moodle_backup = 'src.moodle.create:main'
+moodle_create = 'src.moodle.create:main'
+edx_create = 'src.edx.create:main'

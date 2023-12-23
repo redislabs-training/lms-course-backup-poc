@@ -38,5 +38,5 @@ topics:
     type: "SLIDES"
     ref: "./materials/deep/slides/DeepPreso/dist/presentation.pdf"
   - name: "Deep Dive Lesson"
-    type: "LESSON"
+    type: "EXERCISE"
     ref: "./materials/deep/lessons/deep-dive.md"

@@ -551,7 +551,7 @@ def gen_quiz(activity_data):
     activity_folder = f"{type}_{ids.module}"
     activity_path = f"activities/{activity_folder}"
 
-    gen_activity_general(type, activity_data.get('name'), activity_folder, activity_path)
+    # gen_activity_general(type, activity_data.get('name'), activity_folder, activity_path)
 
 def gen_resource(activity_data):
     logging.debug(activity_data.get('name'))
@@ -562,7 +562,7 @@ def gen_resource(activity_data):
     activity_folder = f"{type}_{ids.module}"
     activity_path = f"activities/{activity_folder}"
 
-    gen_activity_general(type, activity_data.get('name'), activity_folder, activity_path)
+    # gen_activity_general(type, activity_data.get('name'), activity_folder, activity_path)
 
 
 def gen_label(activity_data):
@@ -579,6 +579,40 @@ def gen_label(activity_data):
 def remove_templates():
     shutil.rmtree(f'{workspace_dir}/activities/templates')
 
+
+def generate_archive_index(directory, output_file):
+    entries = []
+    base_length = len(os.path.abspath(directory)) + 1  # +1 to remove the leading slash
+    output_file_path = os.path.abspath(output_file)
+
+    for root, dirs, files in os.walk(directory):
+        # Process directories
+        for dir_name in dirs:
+            dir_path = os.path.join(root, dir_name)
+            if os.path.abspath(dir_path) == output_file_path:
+                continue  # Skip the .ARCHIVE_INDEX file itself
+            dir_relative_path = dir_path[base_length:]
+            timestamp = os.path.getmtime(dir_path)
+            entries.append(f"{dir_relative_path}\td\t?\t{int(timestamp)}\n")
+
+        # Process files
+        for file_name in files:
+            file_path = os.path.join(root, file_name)
+            if os.path.abspath(file_path) == output_file_path:
+                continue  # Skip the .ARCHIVE_INDEX file itself
+            file_relative_path = file_path[base_length:]
+            file_size = os.path.getsize(file_path)
+            timestamp = os.path.getmtime(file_path)
+            entries.append(f"{file_relative_path}\tf\t{file_size}\t{int(timestamp)}\n")
+
+    with open(output_file, 'w') as index_file:
+        # Write the preamble with the count of files and directories
+        index_file.write(f"Moodle archive file index. Count: {len(entries)}\n")
+        # Write the entries
+        for entry in entries:
+            index_file.write(entry)
+
+
 def main():
 
     logging.basicConfig(level=logging.DEBUG)
@@ -593,6 +627,7 @@ def main():
     update_moodle_backup_file(course_data)
     gen_sections(course_data)
     remove_templates()
+    generate_archive_index(workspace_dir, f'{workspace_dir}/.ARCHIVE_INDEX')
 
 
 

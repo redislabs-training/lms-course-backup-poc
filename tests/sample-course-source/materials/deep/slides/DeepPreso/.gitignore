@@ -1,0 +1,15 @@
+template/*
+.tmp
+!template/custom.scss
+
+img/background.png
+img/background2.png
+img/background3.png
+img/background4.png
+img/logo.jpg
+img/logo_dark_text.jpg
+img/logo_dark_text.png
+img/logo_white_text.png
+img/red_corner.png
+img/redis-logo-r.png
+img/redis-logo.jpg

@@ -1,0 +1,42 @@
+id: "enablement-sample"
+type: "COURSE"
+full_name: "Sample Learning Course"
+short_name: "Sample"
+description: "This course was designed to be a sample course to test the import/export cababilities."
+learning_objectives:
+- "Sample structure"
+- "Basic course yaml"
+- "Built in module content"
+version: "v1.0.0"
+icon: "./course-logo.png"
+dependencies:
+topics:
+- name: "Introduction"
+  type: "CONTENT"
+  descr: "Overview of the basics."
+  learning_objectives:
+  - "Grasp the overview of the sample."
+  - "Know what is in the course"
+  content_items:
+  - name: "Basics"
+    type: "VIDEO"
+    ref: "./materials/intro/videos/basics.html"
+  - name: "Basic Quiz"
+    type: "QUIZ"
+    ref: "./materials/intro/quizzes/intro.yaml"
+- name: "Deep"
+  type: "CONTENT"
+  descr: "A Deep dive into details."
+  learning_objectives:
+  - "Show a second section"
+  - "Learn what this looks like"
+  content_items:
+  - name: "Deeper Article"
+    type: "ARTICLE"
+    ref: "./materials/deep/articles/deep.md"
+  - name: "Slides for Deeper"
+    type: "SLIDES"
+    ref: "./materials/deep/slides/DeepPreso/dist/presentation.pdf"
+  - name: "Deep Dive Lesson"
+    type: "EXERCISE"
+    ref: "./materials/deep/lessons/deep-dive.md"

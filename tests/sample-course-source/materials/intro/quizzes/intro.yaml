@@ -1,0 +1,129 @@
+name: Basic Quiz
+intro:
+introformat:
+attempts_number:
+shuffleanswers: 1
+sumgrades: 3.00000
+grade: 10.00000
+questions:
+  - name: "This allows multiple!"
+    questiontext: "This allows multiple! HTML"
+    questiontextformat: 1
+    generalfeedback: "&lt;blockquote&gt;another feedback HTML&lt;/blockquote&gt;"
+    generalfeedbackformat: 1
+    qtype: multichoice
+    answers:
+      - answertext: "Here is one"
+        answerformat: 1
+        fraction: 0.5000000
+        feedback: ""
+        feedbackformat: 1
+      - answertext: "This should be checked"
+        answerformat: 1
+        fraction: 0.5000000
+        feedback: ""
+        feedbackformat: 1
+      - answertext: "not this one"
+        answerformat: 1
+        fraction: -0.5000000
+        feedback: ""
+        feedbackformat: 1
+      - answertext: "definitely not"
+        answerformat: 1
+        fraction: -0.5000000
+        feedback: ""
+        feedbackformat: 1
+    shuffleanswers: 1
+    correctfeedback: "Your answer is correct."
+    correctfeedbackformat: 1
+    partiallycorrectfeedback: "Your answer is partially correct."
+    partiallycorrectfeedbackformat: 1
+    incorrectfeedback: "Your answer is incorrect."
+    incorrectfeedbackformat: 1
+  - name: "True/False: This is a binary question?"
+    questiontext: "True/False: This is a **binary** question?"
+    questiontextformat: 4
+    generalfeedback: "&gt; Feedback *yo*!"
+    generalfeedbackformat: 0
+    qtype: "truefalse"
+    answers:
+      - answertext: "True"
+        answerformat: 0
+        fraction: 1.0000000
+        feedback: ""
+        feedbackformat: 1
+      - answertext: "False"
+        answerformat: 0
+        fraction: 0.0000000
+        feedback: ""
+        feedbackformat: 1
+
+  - name: "A typical TE multiple choice question - one answer"
+    questiontext: "A typical TE multiple choice question - one answer"
+    questiontextformat: 4
+    generalfeedback: "&gt; here is your feedback ..."
+    generalfeedbackformat: 4
+    qtype: "multichoice"
+    answers:
+      - answertext: "An answer that is meant to fool you"
+        answerformat: 1
+        fraction: 0.0000000
+        feedback: ""
+        feedbackformat: 1
+      - answertext: "The correct answer"
+        answerformat: 1
+        fraction: 1.0000000
+        feedback: ""
+        feedbackformat: 1
+      - answertext: "An obviously wrong answer"
+        answerformat: 1
+        fraction: 0.0000000
+        feedback: ""
+        feedbackformat: 1
+      - answertext: "Another trick answer"
+        answerformat: 1
+        fraction: 0.0000000
+        feedback: ""
+        feedbackformat: 1
+    shuffleanswers: 1
+    correctfeedback: "Your answer is correct."
+    correctfeedbackformat: 1
+    partiallycorrectfeedback: "Your answer is partially correct."
+    partiallycorrectfeedbackformat: 1
+    incorrectfeedback: "Your answer is incorrect."
+    incorrectfeedbackformat: 1
+
+  - name: "This is a multi-answer multiple choice?"
+    questiontext: "This is a multi-answer multiple choice?"
+    questiontextformat: 0
+    generalfeedback: "&gt; again here's the cool feedback, general... keep it simple"
+    generalfeedbackformat: 4
+    answers:
+      - answertext: "Not a correct choice"
+        answerformat: 1
+        fraction: -0.5000000
+        feedback: ""
+        feedbackformat: 1
+      - answertext: "Another incorrect choice"
+        answerformat: 1
+        fraction: -0.5000000
+        feedback: ""
+        feedbackformat: 1
+      - answertext: "One you should choose"
+        answerformat: 1
+        fraction: 0.5000000
+        feedback: ""
+        feedbackformat: 1
+      - answertext: "Another you should choose"
+        answerformat: 1
+        fraction: 0.5000000
+        feedback: ""
+        feedbackformat: 1
+    shuffleanswers: 1
+    correctfeedback: "Your answer is correct."
+    correctfeedbackformat: 1
+    partiallycorrectfeedback: "Your answer is partially correct."
+    partiallycorrectfeedbackformat: 1
+    incorrectfeedback: "Your answer is incorrect."
+    incorrectfeedbackformat: 1
+
