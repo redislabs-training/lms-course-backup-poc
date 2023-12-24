@@ -1,8 +1,7 @@
-import logging
 from dataclasses import dataclass
 from enum import Enum
 from typing import List, Optional, Union
-from .utilities import convert_content_item_type, convert_visibility, convert_course_type, convert_topic_type, validate_semver, initialize_topics
+from .utilities import convert_enum, validate_semver
 
 class Visibility(Enum):
     INTERNAL = "INTERNAL"
@@ -23,8 +22,9 @@ class TopicType(Enum):
     MODULE = "MODULE"
     CONTENT = "CONTENT"
 
-class CourseType(Enum):
+class DescriptorType(Enum):
     COURSE = "COURSE"
+    MODULE = "MODULE"
 
 @dataclass
 class Dependency:
@@ -72,19 +72,61 @@ class ContentItem:
     tags: Optional[List[str]] = None
 
     def __post_init__(self):
-        self.visibility = convert_visibility(self.visibility, Visibility)
-        self.type = convert_content_item_type(self.type, ContentItemType)
+        self.visibility = convert_enum(self.visibility, Visibility)
+        self.type = convert_enum(self.type, ContentItemType)
 
     def to_dict(self):
         return {
             "name": self.name,
             "tracked": self.tracked,
-            "type": self.type.name,  # Convert enum to string
+            "type": self.type.name,
             "ref": self.ref,
-            "visibility": self.visibility.name,  # Convert enum to string
+            "visibility": self.visibility.name,
             "tags": self.tags
         }
 
+@dataclass
+class CourseTopic:
+    """
+    Base class for different types of course topics.
+
+    Attributes:
+        name (str): The name of the topic.
+        descr (Optional[str]): A description of the topic.
+        visibility (Visibility): The visibility status of the topic (INTERNAL, TRUSTED, PUBLIC).
+    """
+    name: str
+    descr: Optional[str] = None
+    visibility: Optional[Visibility] = Visibility.PUBLIC
+    type: TopicType = TopicType.CONTENT
+
+    def __post_init__(self):
+        self.visibility = convert_enum(self.visibility, Visibility)
+        self.type = convert_enum(self.type, TopicType)
+
+@dataclass
+class ContentCourseTopic(CourseTopic):
+    """
+    Represents a course topic that contains a list of content items.
+
+    Attributes:
+        content_items (List[ContentItem]): A list of content items associated with the topic.
+    """
+    learning_objectives: Optional[List[str]] = None 
+    content_items: List['ContentItem'] = None
+
+    def __post_init__(self):
+        self.content_items = [ContentItem(**item) for item in self.content_items]
+ 
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "descr": self.descr,
+            "visibility": self.visibility.name,
+            "type": self.type.name,
+            "content_items": [ci.to_dict() for ci in self.content_items]
+        }
 @dataclass
 class CourseModule:
     """
@@ -107,16 +149,18 @@ class CourseModule:
     id: str
     name: str
     version: str
-    topics: List['ContentCourseTopic']
+    topics: List[ContentCourseTopic]
+    type: DescriptorType = DescriptorType.MODULE
     descr: Optional[str] = None
     learning_objectives: Optional[List[str]] = None
-    visibility: Visibility = Visibility.PUBLIC
+    visibility: Optional[Visibility] = Visibility.PUBLIC
     tags: Optional[List[str]] = None
 
     def __post_init__(self):
-        self.visibility = convert_visibility(self.visibility, Visibility)
+        self.visibility = convert_enum(self.visibility, Visibility)
+        self.type = convert_enum(self.type, DescriptorType)
         validate_semver(self.version)
-        self.topics = initialize_topics(self.topics, ContentCourseTopic, ModuleCourseTopic, TopicType)
+        self.topics = [ContentCourseTopic(**topic) for topic in self.topics]
 
     def to_dict(self):
         return {
@@ -125,53 +169,9 @@ class CourseModule:
             "descr": self.descr,
             "learning_objectives": self.learning_objectives,
             "version": self.version,
-            "visibility": self.visibility.name,  # Convert enum to string
+            "visibility": self.visibility.name,
             "tags": self.tags,
-            "topics": [item.to_dict() for item in self.content]  # Assuming all content has a to_dict method
-        }
-
-@dataclass
-class CourseTopic:
-    """
-    Base class for different types of course topics.
-
-    Attributes:
-        name (str): The name of the topic.
-        descr (Optional[str]): A description of the topic.
-        visibility (Visibility): The visibility status of the topic (INTERNAL, TRUSTED, PUBLIC).
-    """
-    name: str
-    descr: Optional[str] = None
-    visibility: Visibility = Visibility.PUBLIC
-    type: TopicType = TopicType.CONTENT
-
-    def __post_init__(self):
-        self.visibility = convert_visibility(self.visibility, Visibility)
-        self.type = convert_topic_type(self.type, TopicType)
-
-@dataclass
-class ContentCourseTopic(CourseTopic):
-    """
-    Represents a course topic that contains a list of content items.
-
-    Attributes:
-        content_items (List[ContentItem]): A list of content items associated with the topic.
-    """
-    learning_objectives: Optional[List[str]] = None 
-    content_items: List['ContentItem'] = None
-
-    def __post_init__(self):
-        # Convert content item dictionaries to ContentItem objects
-        self.content_items = [ContentItem(**item) for item in self.content_items]
- 
-
-    def to_dict(self):
-        return {
-            "name": self.name,
-            "descr": self.descr,
-            "visibility": self.visibility.name,  # Convert enum to string
-            "type": self.type.name,
-            "content_items": [ci.to_dict() for ci in self.content_items]  # Assuming ContentItem has a to_dict method
+            "topics": [item.to_dict() for item in self.content]
         }
 
 @dataclass
@@ -188,9 +188,9 @@ class ModuleCourseTopic(CourseTopic):
         return {
             "name": self.name,
             "descr": self.descr,
-            "visibility": self.visibility.name,  # Convert enum to string
+            "visibility": self.visibility.name,
             "type": self.type.name,
-            "module": self.module.to_dict()  # Assuming CourseModule has a to_dict method
+            "module": self.module.to_dict()
         }
 
 
@@ -219,9 +219,9 @@ class Course:
     id: str
     full_name: str
     version: str
-    dependencies: List['Dependency']
     topics: List[Union[ContentCourseTopic, ModuleCourseTopic]]
-    type: CourseType = CourseType.COURSE
+    type: DescriptorType = DescriptorType.COURSE
+    dependencies: Optional[List['Dependency']] = None
     short_name: Optional[str] = None
     learning_objectives: Optional[List[str]] = None 
     description: Optional[str] = None
@@ -230,11 +230,19 @@ class Course:
     visibility: Visibility = Visibility.PUBLIC
 
     def __post_init__(self):
-        self.visibility = convert_visibility(self.visibility, Visibility)
-        self.type = convert_course_type(self.type, CourseType)
+        self.visibility = convert_enum(self.visibility, Visibility)
+        self.type = convert_enum(self.type, DescriptorType)
         self.dependencies = [Dependency(**dependency) for dependency in self.dependencies]
         validate_semver(self.version)
-        self.topics = initialize_topics(self.topics, ContentCourseTopic, ModuleCourseTopic, TopicType)
+        initialized_topics = []
+        for topic_data in self.topics:
+            if topic_data['type'] == TopicType.CONTENT.value:  # Assuming type is a string "CONTENT" or "MODULE"
+                initialized_topics.append(ContentCourseTopic(**topic_data))
+            elif topic_data['type'] == TopicType.MODULE.value:
+                initialized_topics.append(ModuleCourseTopic(**topic_data))
+            else:
+                raise ValueError(f"Unknown topic type: {topic_data['type']}")
+        self.topics = initialized_topics
 
     def to_dict(self):
         return {
@@ -248,6 +256,6 @@ class Course:
             "icon": self.icon,
             "topics": [topic.to_dict() for topic in self.topics],
             "tag_filter": self.tag_filter,
-            "visibility": self.visibility.name,  # Convert enum to string
-            "dependencies": [dependency.to_dict() for dependency in self.dependencies]  # Assuming Dependency has a to_dict method
+            "visibility": self.visibility.name,
+            "dependencies": [dependency.to_dict() for dependency in self.dependencies]
         }

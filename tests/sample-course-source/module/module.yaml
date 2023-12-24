@@ -1,0 +1,39 @@
+---
+id: "mod-sample-uses"
+type: "MODULE"
+name: "Sample Uses"
+descr: "This module introduces basic concepts in Sample Uses."
+learning_objectives:
+  - "Understand basic data manipulation and cleaning techniques"
+  - "Introduction to statistical methods"
+  - "Familiarity with Python's data science libraries"
+  - "Basics of machine learning algorithms"
+  - "Hands-on experience with data visualization"
+
+version: "v1.0.0"
+topics:
+  - name: "Uses Overview"
+    content_items:
+       - name: "What is Data Science?"
+         tracked: True
+         type: "VIDEO"
+         ref: "./materials/video/what-is-data-science.html"
+       - name: "Setting up Your Environment"
+         tracked: True
+         type: "ARTICLE"
+         ref: "./materials/articles/setting-up-environment.md"
+       - name: "Quiz - What is Data Science"
+         tracked: True
+         visibility: "TRUSTED"
+         type: "QUIZ"
+         ref: "./materials/quizzes/data-science.md"
+  - name: "Working with Data"
+    content_items:
+       - name: "Data Cleaning Techniques"
+         tracked: True
+         type: "EXERCISE"
+         ref: "./materials/lessons/data-cleaning-techniques.md"
+       - name: "Introduction to Pandas"
+         tracked: False
+         type: "LINK"
+         ref: "https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/"
