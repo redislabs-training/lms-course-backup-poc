@@ -1,7 +1,7 @@
 import unittest
 import yaml
 from pathlib import Path
-from src.course.dataclasses import Course, CourseModule, ContentItem, Dependency, Visibility, ContentItemType, TopicType, DescriptorType, ContentCourseTopic, ModuleCourseTopic
+from src.course_entities import Course, CourseModule, ContentItem, Dependency, Visibility, ContentItemType, TopicType, DescriptorType, ContentCourseTopic, ModuleCourseTopic
 
 class TestCourseDataClasses(unittest.TestCase):
     @classmethod
