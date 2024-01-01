@@ -1,7 +1,8 @@
 import logging
 import re
 from enum import Enum
-from ..edx.config import SEMVER_REGEX
+
+SEMVER_REGEX = r"^v?(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$"
 
 
 def convert_enum(value: str, enum_class: Enum):
