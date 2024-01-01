@@ -40,5 +40,5 @@ pip-wheel-metadata
 
 poetry/core/*
 
-moodle-backup-workspace/*
+moodle-workspace/*
 workspace/*

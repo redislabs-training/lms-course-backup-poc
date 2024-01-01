@@ -1,7 +1,7 @@
 import logging
 import yaml
 
-from .config import LOG_LEVEL,EDX_WORKSPACE,COURSE_SOURCE
+from .config import LOG_LEVEL,WORKSPACE,COURSE_SOURCE
 from .workspace import create_workspace
 
 def main():

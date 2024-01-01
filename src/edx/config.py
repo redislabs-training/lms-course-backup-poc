@@ -10,7 +10,7 @@ def load_env_variables(env_file=".env"):
 load_env_variables()
 
 COURSE_SOURCE = os.getenv("COURSE_SOURCE")
-EDX_WORKSPACE = os.getenv("EDX_WORKSPACE")
+WORKSPACE = os.getenv("WORKSPACE")
 
 set_level = os.getenv("LOG_LEVEL")
 match set_level:

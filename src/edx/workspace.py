@@ -1,6 +1,6 @@
 import os
 import logging
-from .config import EDX_WORKSPACE
+from .config import WORKSPACE
 
 
 def create_workspace():
@@ -18,10 +18,10 @@ def create_workspace():
         "vertical"
     ]
 
-    if not os.path.exists(EDX_WORKSPACE):
-        os.makedirs(EDX_WORKSPACE)
+    if not os.path.exists(WORKSPACE):
+        os.makedirs(WORKSPACE)
     
     logging.debug('create_workspace directories')
     for directory in directories:
-        path = os.path.join(EDX_WORKSPACE, directory)
+        path = os.path.join(WORKSPACE, directory)
         os.makedirs(path, exist_ok=True)

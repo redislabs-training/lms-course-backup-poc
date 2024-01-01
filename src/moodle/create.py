@@ -16,7 +16,7 @@ from .Lesson import LVals, LPage, LAnswer
 # globals for now
 current_timestamp = int(time.time())
 
-workspace_dir = '/Users/kurtmoeller/Develop/course-backup-poc/moodle-backup-workspace'
+workspace_dir = '/Users/kurtmoeller/Develop/course-backup-poc/workspace'
 course_path = '/Users/kurtmoeller/Develop/course-backup-poc/course-source'
 template_dir = '/Users/kurtmoeller/Develop/course-backup-poc/moodle-templates'
 
