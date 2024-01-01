@@ -7,12 +7,12 @@ class TestCourseDataClasses(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Load the course YAML file
-        course_yaml_path = Path(__file__).parent / "sample-course-source/course.yaml"
+        course_yaml_path = Path(__file__).parent / "resources/sample-course-source/course.yaml"
         with open(course_yaml_path, 'r') as file:
             cls.course_data = yaml.safe_load(file)
         cls.course = Course(**cls.course_data)
 
-        module_yaml_path = Path(__file__).parent / "sample-course-source/module/module.yaml"
+        module_yaml_path = Path(__file__).parent / "resources/sample-course-source/module/module.yaml"
         with open(module_yaml_path, 'r') as file:
             cls.module_data = yaml.safe_load(file)
         cls.module= CourseModule(**cls.module_data)
