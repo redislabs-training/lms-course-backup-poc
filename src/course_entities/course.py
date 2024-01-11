@@ -22,7 +22,7 @@ class Course:
         topics (List[CourseTopic]): A list of topics associated with the course.
         tag_filter (Optional[str]): A tag used for filtering or categorization.
         visibility (Visibility): The visibility status of the course (INTERNAL, TRUSTED, PUBLIC).
-        dependencies (List[Dependency]): A list of dependencies that the course relies on.
+        dependencies (Optional[List[Dependency]]): A list of dependencies that the course relies on.
 
     Methods:
         to_dict: Returns a dictionary representation of the course.
@@ -44,7 +44,8 @@ class Course:
     def __post_init__(self):
         self.visibility = convert_enum(self.visibility, Visibility)
         self.type = convert_enum(self.type, DescriptorType)
-        self.dependencies = [Dependency(**dependency) for dependency in self.dependencies]
+        if self.dependencies is not None:
+            self.dependencies = [Dependency(**dependency) for dependency in self.dependencies]
         validate_semver(self.version)
         initialized_topics = []
         for topic_data in self.topics:

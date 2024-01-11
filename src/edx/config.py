@@ -25,3 +25,7 @@ match set_level:
     case _:
         LOG_LEVEL = logging.INFO
 
+logging.basicConfig(
+    level=LOG_LEVEL,
+    format='%(asctime)s - %(levelname)s - %(module)s - %(funcName)s - %(message)s'
+)

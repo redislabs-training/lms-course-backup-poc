@@ -1,6 +1,6 @@
 id: "enablement-sample"
 type: "COURSE"
-name: "Sample Learning Course"
+full_name: "Sample Learning Course"
 short_name: "Sample"
 description: "This course was designed to be a sample course to test the import/export cababilities."
 learning_objectives:
@@ -9,7 +9,6 @@ learning_objectives:
 - "Built in module content"
 version: "v1.0.0"
 icon: "./course-logo.png"
-dependencies:
 topics:
 - name: "Introduction"
   type: "CONTENT"

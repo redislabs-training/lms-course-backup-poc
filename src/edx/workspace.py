@@ -1,7 +1,8 @@
 import os
 import logging
 from .config import WORKSPACE
-
+import shutil
+import time
 
 def create_workspace():
     logging.debug('create_workspace')
@@ -18,8 +19,12 @@ def create_workspace():
         "vertical"
     ]
 
-    if not os.path.exists(WORKSPACE):
-        os.makedirs(WORKSPACE)
+    if os.path.exists(WORKSPACE):
+        backup_dir = f'{WORKSPACE}_{int(time.time())}'
+        logging.debug(f'create_workspace WORKSPACE exists, backing up to: {backup_dir}')
+        shutil.move(WORKSPACE, backup_dir)
+    
+    os.makedirs(WORKSPACE)
     
     logging.debug('create_workspace directories')
     for directory in directories:
