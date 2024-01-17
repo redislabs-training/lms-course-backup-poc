@@ -1,20 +1,19 @@
 import os
 import logging
-from ..config import WORKSPACE, COURSE_SOURCE
+from ..config import WORKSPACE, COURSE_SOURCE, ORG, MODULES
 from pathlib import Path
 import json
 import shutil
 from dataclasses import asdict
-from src.course_entities import Course
-from .utilities import get_mime_type, add_asset, normalize_short_name
-from .entities import ContentSon, Asset, Policy, Tab, UserPartition, Group
+from .utilities import get_mime_type, normalize_short_name
+from .assets import add_asset
+from .entities import ContentSon, Asset, Policy, GradingPolicy, Tab, UserPartition, Group
 
 _DIR=f"{WORKSPACE}/policies/"
 
-def gen_policies(course_data):
+def gen_policies(course):
     logging.info(f'gen section: {_DIR}')
 
-    course = Course(**course_data)
     name = normalize_short_name(course.short_name)
     course_path = os.path.join(_DIR, name)
     os.makedirs(course_path, exist_ok=True)
@@ -23,9 +22,10 @@ def gen_policies(course_data):
         shutil.copy(f'{COURSE_SOURCE}/{course.icon}', f'{WORKSPACE}/static/')
         _add_course_logo(course, name, logo_filename)
     _gen_policy(name, logo_filename)
+    _gen_grading_policy(name)
 
 def _add_course_logo(course,name,logo_filename):
-    son = ContentSon(name=logo_filename,course=name)
+    son = ContentSon(name=logo_filename,course=name,org=ORG)
     logo_obj = {'contentType':get_mime_type(course.icon),
         'displayname': logo_filename,
         'filename': f'asset-v1:edu+{course.version}+{name}+type@asset+block@{logo_filename}',
@@ -38,12 +38,21 @@ def _add_course_logo(course,name,logo_filename):
 def _gen_policy(name, logo_filename):
     logging.info(f'gen policy json file')
 
-    policy = Policy({
-        'course_logo': logo_filename
-    })
+    policy = Policy(course_logo=logo_filename)
 
     policy_obj = {f"course/{name}":asdict(policy)}
 
     file_path = f'{_DIR}/{name}/policy.json'
+    with open(file_path, 'w') as file:
+        json.dump(policy_obj, file, indent=4)
+
+def _gen_grading_policy(name):
+    logging.info(f'gen grading policy json file')
+
+    grading_policy = GradingPolicy()
+
+    policy_obj = asdict(grading_policy)
+
+    file_path = f'{_DIR}/{name}/grading_policy.json'
     with open(file_path, 'w') as file:
         json.dump(policy_obj, file, indent=4)

@@ -2,7 +2,7 @@ import json
 from dataclasses import dataclass, field, asdict
 from typing import Optional, List, Dict
 from .utilities import current_datetime
-
+import uuid
 
 def complex_encoder(obj):
     if isinstance(obj, Policy):
@@ -34,13 +34,19 @@ class UserPartition:
     groups: List[Group]
 
 @dataclass
+class Overview:
+    about: str
+    prerequisites: Optional[str] = None
+    staff: Optional[str] = None
+    faq: Optional[str] = None
+@dataclass
 class Policy:
+    #advanced_modules: List[str]
     course_logo: Optional[str]
-    start: Optional[str] = field(default_factory=current_datetime)
+    #start: Optional[str] = field(default_factory=current_datetime)
     show_calculator: bool = False
     show_reset_button: bool = False
-    advanced_modules: List[str] = field(default_factory=lambda: ["pdf"])
-    language: Optional[str] = "en"
+    #language: Optional[str] = "en"
     discussion_blackouts: List[List[str]] = field(default_factory=list)
     discussion_topics: Dict[str, Dict[str, str]] = field(default_factory=dict)
     tabs: List[Tab] = field(default_factory=list)
@@ -53,9 +59,9 @@ class Policy:
 class ContentSon:
     name: str
     course: str
+    org: str
     category: str = "asset"
     tag: str = 'cx4'
-    org: str = 'edu'
     revision: Optional[str] = None
 
 @dataclass
@@ -92,3 +98,14 @@ class GradingPolicy:
 # Example usage
 grading_policy = GradingPolicy()
 print(grading_policy)
+
+
+@dataclass
+class HtmlComponent:
+    name: str
+    content: str
+    uuid: str = field(default_factory=lambda: str(uuid.uuid4())[:16])
+    display_name: str = field(init=False)
+
+    def __post_init__(self):
+        self.display_name = self.name.lower().replace(" ", "-")

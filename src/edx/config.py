@@ -29,3 +29,7 @@ logging.basicConfig(
     level=LOG_LEVEL,
     format='%(asctime)s - %(levelname)s - %(module)s - %(funcName)s - %(message)s'
 )
+
+# EDX values
+ORG = os.getenv("EDX_ORG", "ru")
+MODULES = ["pdf"]

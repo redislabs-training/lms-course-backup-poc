@@ -1,0 +1,5 @@
+<course advanced_modules="[&quot;pdf&quot;]" cert_html_view_enabled="true" course_image="course-logo.png" display_name="Sample Learning Course" instructor_info="{&quot;instructors&quot;: []}" language="en" learning_info="[]" start="2030-01-01T00:00:00+00:00">
+  <chapter url_name="a22f0055a0c84fdba9c5a9bde4fbf908"/>
+  <chapter url_name="24805a4b3c934c0dad8d20690c99154d"/>
+  <wiki slug="basics.B101.ongoing"/>
+</course>
