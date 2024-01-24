@@ -93,7 +93,7 @@ def _add_html(vertical_id,name, html):
     html_file.writelines(html)
 
     file_path = f"{WORKSPACE}/html/{html_id}.xml"
-    html_elem = ET.Element("html",file_name=html_id, display_name=name, editor="raw")
+    html_elem = ET.Element("html",filename=html_id, display_name=name, editor="raw")
     tree = ET.ElementTree(html_elem)
     tree.write(file_path, encoding="UTF-8", xml_declaration=False)
     logging.info(f'write new vertical at {file_path}')
@@ -140,7 +140,8 @@ def _add_exercise(item,sequential_id):
     logging.debug(steps)
 
     for step in steps:
-        html = convert_markdown_to_html(step['section'])
+        html = f"<h2>{step['name']}</h2>"
+        html += convert_markdown_to_html(step['section'])
 
         _add_html(vertical_id, step['name'], html)
 
