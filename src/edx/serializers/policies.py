@@ -21,7 +21,7 @@ def gen_policies(course):
         logo_filename = os.path.basename(course.icon)
         shutil.copy(f'{COURSE_SOURCE}/{course.icon}', f'{WORKSPACE}/static/')
         _add_course_logo(course, name, logo_filename)
-    _gen_policy(name, logo_filename)
+    _gen_policy(name, logo_filename, course.full_name)
     _gen_grading_policy(name)
 
 def _add_course_logo(course,name,logo_filename):
@@ -35,10 +35,10 @@ def _add_course_logo(course,name,logo_filename):
     logo = Asset(**logo_obj)
     add_asset(logo)
 
-def _gen_policy(name, logo_filename):
+def _gen_policy(name, logo_filename, course_full_name):
     logging.info(f'gen policy json file')
 
-    policy = Policy(course_logo=logo_filename)
+    policy = Policy(display_name=course_full_name,course_image=logo_filename)
 
     policy_obj = {f"course/{name}":asdict(policy)}
 

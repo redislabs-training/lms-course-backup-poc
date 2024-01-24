@@ -3,7 +3,7 @@ import yaml
 from src.course_entities import Course
 from .config import COURSE_SOURCE, WORKSPACE
 from .workspace import create_workspace
-from .serializers import gen_about, gen_policies, gen_structure
+from .serializers import gen_about, gen_info, gen_policies, gen_structure
 
 def main():
 
@@ -15,10 +15,13 @@ def main():
     course = Course(**course_data)
 
     gen_about(course)
+    gen_info(course)
     gen_policies(course)
     gen_structure(course)
 
-    
+
+
+
 
 if __name__ == '__main__':
     main()

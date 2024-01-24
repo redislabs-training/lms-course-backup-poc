@@ -11,12 +11,12 @@ _DIR = f"{WORKSPACE}/course"
 
 def gen_structure(course):
     logging.info('generate course structure')
-    _write_course(normalize_short_name(course.short_name), ORG, course.full_name)
+    _write_course(normalize_short_name(course.short_name), ORG)
     _write_course_structure(course)
 
 
-def _write_course(short_name, org, full_name):
-    course_elem = ET.Element("course", url_name=short_name, org=org, course=full_name)
+def _write_course(short_name, org):
+    course_elem = ET.Element("course", url_name=short_name, org=org, course=short_name)
     filepath = os.path.join(WORKSPACE, "course.xml")
     tree = ET.ElementTree(course_elem)
     tree.write(filepath, encoding="UTF-8", xml_declaration=False)
@@ -28,16 +28,16 @@ def _write_course_structure(course):
     modules = [f'&quot;{element}&quot;' for element in MODULES]
     #until we figure it out
     course_elem = ET.Element("course", 
-                             advanced_modules=f"[{', '.join(modules)}]",
                              course_image=os.path.basename(course.icon),
                              language="en",
                              display_name=course.full_name,
                              learning_info="[]",
-                             instructor_info="{&quot;instructors&quot;: []}",
                              start=current_datetime(),
                              end=future_datetime(60),
-                             cert_html_view_enabled="true"
+                             cert_html_view_enabled="true",
+                             advanced_modules=MODULES
                              )
+    course_elem.set("instructor_info", "{\"instructors\": []}")
 
     for topic in course.topics:
         chapter_id = get_id()

@@ -16,7 +16,7 @@
 
 > This is why this is the answer
 
-## A simple true/fase?
+## A simple true/false?
 
 [x] True  
 [ ] False  

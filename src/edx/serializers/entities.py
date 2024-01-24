@@ -42,15 +42,20 @@ class Overview:
 @dataclass
 class Policy:
     #advanced_modules: List[str]
-    course_logo: Optional[str]
+    course_image: Optional[str]
+    display_name: Optional[str]
+    instructor_info: Optional[Dict] = field(default_factory=dict)
     #start: Optional[str] = field(default_factory=current_datetime)
     show_calculator: bool = False
     show_reset_button: bool = False
     #language: Optional[str] = "en"
+    learning_info: List[List[str]] = field(default_factory=list)
     discussion_blackouts: List[List[str]] = field(default_factory=list)
     discussion_topics: Dict[str, Dict[str, str]] = field(default_factory=dict)
     tabs: List[Tab] = field(default_factory=list)
     user_partitions: List[UserPartition] = field(default_factory=list)
+    cert_html_view_enabled: bool = True
+
 
     def to_json(self):
         return json.dumps(self, default=complex_encoder)

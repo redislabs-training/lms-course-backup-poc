@@ -22,7 +22,7 @@ topics:
     ref: "./materials/intro/videos/basics.html"
   - name: "Basic Quiz"
     type: "QUIZ"
-    ref: "./materials/intro/quizzes/intro.yaml"
+    ref: "./materials/intro/quizzes/intro.md"
 - name: "Deep"
   type: "CONTENT"
   descr: "A Deep dive into details."

@@ -13,12 +13,13 @@ def get_mime_type(file_path):
 
 def current_datetime():
     # Returns the current date and time in ISO format with a 'Z' suffix
-    return datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    # return datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    return datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S+00:00")
 
 def future_datetime(months=60):
     current_utc = datetime.utcnow()
     future_utc = current_utc + relativedelta(months=months)
-    return future_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
+    return future_utc.strftime("%Y-%m-%dT%H:%M:%S+00:00")
 
 def normalize_short_name(name):
     return name.lower().replace(" ", "-")
@@ -39,9 +40,9 @@ def get_hash_id(val:str, len:int = 24):
 
 def get_id():
     new_uuid = uuid.uuid4()
-    return str(new_uuid)
+    return str(new_uuid).replace('-', '')
 
-def parse_markdown_sections(file_path):
+def parse_markdown_sections(file_path,section_indicator):
     with open(file_path, 'r') as file:
         content = file.readlines()
 
@@ -50,7 +51,7 @@ def parse_markdown_sections(file_path):
     current_content = []
 
     for line in content:
-        if line.startswith('##'):
+        if line.startswith(section_indicator):
             if current_section:
                 # Finalize the previous section
                 current_section['section'] = ''.join(current_content).strip()

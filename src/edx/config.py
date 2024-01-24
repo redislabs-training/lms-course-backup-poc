@@ -32,4 +32,11 @@ logging.basicConfig(
 
 # EDX values
 ORG = os.getenv("EDX_ORG", "ru")
-MODULES = ["pdf"]
+# comma separate list of modules in a string
+MODULES = "[\"pdf\"]"
+
+# set local edx values
+EDX_STUDIO_URL = os.getenv("EDX_STUDIO_URL", "http://studio.local.edly.io")
+EDX_LMS_URL = os.getenv("EDX_LMS_URL", "http://local.edly.io")
+EDX_CLIENT_ID = os.getenv("EDX_CLIENT_ID", "NFQrmeVTPfL3xviTWbRRRA2QWgBMJWTJfIbw3GpY")
+EDX_CLIENT_SECRET = os.getenv("EDX_CLIENT_SECRET", "tk8MyEZ64dbp1LZrX4V0MB7IrQ35OGjMjtX98rGOdvpBItuvRAI8IrhxvDOguKq2oBMjeMdDac2oslYwmaNzeiZDVgobm0SqCGMNYWnjXQDlFWC4fwOpOWFAAS3okoI5")

@@ -14,6 +14,7 @@ PyYAML = "^6.0.1"
 jinja2 = "^3.1.2"
 markdown = "^3.5.2"
 olxcleaner = "^0.2.1"
+requests = "^2.31.0"
 
 [tool.poetry.dev-dependencies]
 
@@ -25,3 +26,5 @@ build-backend = "poetry.core.masonry.api"
 moodle_create = 'src.moodle.create:main'
 edx_create = 'src.edx.create:main'
 edx_validate = 'src.edx.validate:main'
+edx_package = 'src.edx.package:main'
+edx_import = 'src.edx.import:main'
